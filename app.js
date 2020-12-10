@@ -5,7 +5,7 @@ require("dotenv").config({
 })
 
 //db connection
-// require("./config/db")()
+require("./config/db")()
 
 
 //import routes
