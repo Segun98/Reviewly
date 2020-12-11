@@ -3,11 +3,14 @@ const {
     createApartment,
     updateApartment,
     deleteApartment,
-    getApartment
+    getApartment,
+    getAllApartments
 } = require("../controllers/apartment")
 
 
 router.post('/apartment/create', createApartment)
+
+router.get('/apartments', getAllApartments)
 
 router.route('/apartment/:id')
     .get(getApartment)

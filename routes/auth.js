@@ -11,8 +11,11 @@ const {
 
 //authentication
 router.post('/login', login)
+
 router.post('/signup', signUp)
+
 router.get('/user', verifyJwt, getUser)
+
 router.get('/users', getUsers)
 
 

@@ -17,6 +17,13 @@ const Reviews = new mongoose.Schema({
     environmentReview: String,
     amenitiesReview: String,
     image: String,
+    upvotes: [{
+        ipAddress: {
+            type: String,
+            unique: true,
+            default: ""
+        }
+    }],
     createdAt: {
         type: Date,
         default: Date.now
