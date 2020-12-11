@@ -23,7 +23,7 @@ const Reviews = new mongoose.Schema({
             default: ""
         }
     }],
-    count: {
+    upvoteCount: {
         type: Number,
         default: 0
     },
