@@ -36,13 +36,29 @@ async function createReview(req, res, next) {
 
 /* 
 GET api/reviews/:id
-fetches all reviews under an apartment, expects apartment id in parameter
+fetches all reviews under an apartment, expects apartment id in parameter.
+expects a query of what it should be sorted by. - date || votes
 */
 async function getReviews(req, res, next) {
+
+    //sorting
+    const {
+        sort
+    } = req.query
+    //sorted by date by default
+    let sortKey = "createdAt";
+
+    //sort by vote count or date depending on query - query expects 'date' or 'votes'
+
+    if (sort) {
+        sortKey = sort === 'date' ? 'createdAt' : 'upvoteCount'
+    }
 
     try {
         const review = await Reviews.find({
             apartmentId: req.params.id
+        }).sort({
+            [sortKey]: -1
         })
 
         res.status(200).json(review)
@@ -134,7 +150,7 @@ async function upVote(req, res, next) {
                     }
                 },
                 $inc: {
-                    count: 1
+                    upvoteCount: 1
                 }
             });
 
@@ -157,7 +173,7 @@ async function upVote(req, res, next) {
                         }
                     },
                     $inc: {
-                        count: -1
+                        upvoteCount: -1
                     }
 
                 })
@@ -176,7 +192,7 @@ async function upVote(req, res, next) {
                 }
             },
             $inc: {
-                count: 1
+                upvoteCount: 1
             }
         });
 
