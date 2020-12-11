@@ -20,10 +20,13 @@ const Reviews = new mongoose.Schema({
     upvotes: [{
         ipAddress: {
             type: String,
-            unique: true,
             default: ""
         }
     }],
+    count: {
+        type: Number,
+        default: 0
+    },
     createdAt: {
         type: Date,
         default: Date.now

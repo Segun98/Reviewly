@@ -1,4 +1,3 @@
-//@ts-check
 const Reviews = require("../models/reviews")
 
 /* 
@@ -105,9 +104,10 @@ async function deleteReview(req, res, next) {
 
 
 /* 
-POST api/review/like
-like a review.
-expects the _id of the review being liked
+POST api/review/upvote
+give an upvote.
+expects the _id of the review being upvoted.
+duplicates are prevented with ip address
 */
 async function upVote(req, res, next) {
     const {
@@ -118,23 +118,55 @@ async function upVote(req, res, next) {
     try {
         //check if user has liked this post via their ip address
         const checkIfLiked = await Reviews.find({
+            _id: reviewId
+        }, {
             "upvotes.ipAddress": req.ip
         })
 
-        if (checkIfLiked.length > 0) {
+        //upvote without checks if there's no previous upvote by any user
+        if (checkIfLiked[0].upvotes.length === 0) {
             await Reviews.findOneAndUpdate({
                 _id: reviewId
             }, {
-                $pull: {
+                $push: {
                     upvotes: {
-                        ipAddress: req.ip
+                        "ipAddress": req.ip,
                     }
+                },
+                $inc: {
+                    count: 1
                 }
-            })
-            return res.status(201).send('unliked!')
+            });
+
+            return res.status(201).send('success!')
+
         }
 
-        //add upvotes
+        //loop through ip addresses, check if user's ip matches with existing ip addresses, decrement count and remove upvote if it matches
+
+        for (let i = 0; i < checkIfLiked[0].upvotes.length; i++) {
+
+            if (checkIfLiked[0].upvotes[i].ipAddress === req.ip) {
+
+                await Reviews.findOneAndUpdate({
+                    _id: reviewId
+                }, {
+                    $pull: {
+                        upvotes: {
+                            ipAddress: req.ip
+                        }
+                    },
+                    $inc: {
+                        count: -1
+                    }
+
+                })
+                return res.send('unliked!')
+            }
+
+        }
+
+        //finally add upvotes and increment count if the condtions above weren't met
         await Reviews.findOneAndUpdate({
             _id: reviewId
         }, {
@@ -142,10 +174,15 @@ async function upVote(req, res, next) {
                 upvotes: {
                     "ipAddress": req.ip,
                 }
+            },
+            $inc: {
+                count: 1
             }
         });
 
         res.status(201).send('success!')
+
+
 
     } catch (err) {
         res.status(400).send(err.message)
