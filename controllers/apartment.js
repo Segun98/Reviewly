@@ -35,11 +35,11 @@ GET /api/v1/apartment/:id
 */
 async function getApartment(req, res, next) {
     try {
-        const apartment = await Apartments.find({
+        const apartment = await Apartments.findOne({
             _id: req.params.id
         })
 
-        res.status(200).json(apartment[0])
+        res.status(200).json(apartment)
 
     } catch (err) {
         res.status(400).send(err.message)
