@@ -18,15 +18,15 @@
 
 - Body
 
-  - Content: {
-    "name": "John's Place",
+        Content: {
+        "name": "John's Place",
 
-    "location":"5, Parkview Street", Idumota, Lagos",
+        "location":"5, Parkview Street", Idumota, Lagos",
 
-    "description":"A 3 bedroom flat apartment with an open pool",
+        "description":"A 3 bedroom flat apartment with an open pool",
 
-    "image":"https://image.unsplash.com"
-    }
+        "image":"https://image.unsplash.com"
+        }
 
 - Response:
 
@@ -50,29 +50,30 @@
 - Success Response
 
   - Code: 200
-  - Content: [
-    {
-    "\_id": "2852785387231",
 
-    "name": "John's Place",
+         Content: [
+        {
+        "_id": "2852785387231",
 
-    "location":"5, Parkview Street",Idumota, Lagos",
+        "name": "John's Place",
 
-    "description":"A 3 bedroom flat apartment with an open pool",
+        "location":"5, Parkview Street",Idumota, Lagos",
 
-    "image":"https://image.unsplash.com"
-    },
+        "description":"A 3 bedroom flat apartment with an open pool",
 
-    {
-    "\_id": "57287215752"
-    "name": "Fred's Lounge",
-    "location":"3, Victoria Street",
-    VI, Lagos",
-    "description":"A 3 bedroom flat apartment with an open pool",
-    "image":"https://image.unsplash.com",
-    "createdAt": "2020-12-10T19:56:07.351Z"
-    }
-    ]
+        "image":"https://image.unsplash.com"
+        },
+
+        {
+        "_id": "57287215752"
+        "name": "Fred's Lounge",
+        "location":"3, Victoria Street",
+        VI, Lagos",
+        "description":"A 3 bedroom flat apartment with an open pool",
+        "image":"https://image.unsplash.com",
+        "createdAt": "2020-12-10T19:56:07.351Z"
+        }
+        ]
 
 - Error Response:
 
@@ -93,18 +94,19 @@
 - Success Response
 
   - Code: 200
-  - Content:
-    {
-    "\_id": "2852785387231",
 
-    "name": "John's Place",
+            Content:
+            {
+            "_id": "2852785387231",
 
-    "location":"5, Parkview Street",Idumota, Lagos",
+            "name": "John's Place",
 
-    "description":"A 3 bedroom flat apartment with an open pool",
+            "location":"5, Parkview Street",Idumota, Lagos",
 
-    "image":"https://image.unsplash.com"
-    }
+            "description":"A 3 bedroom flat apartment with an open pool",
+
+            "image":"https://image.unsplash.com"
+            }
 
 - Error Response:
 
@@ -128,19 +130,19 @@
 
 - Body
 
-  - Content: {
-    "name": "John's Place",
+        Content: {
+        "name": "John's Place",
 
-    "apartmentId": "John's Place",
+        "apartmentId": "John's Place",
 
-    "landlordReview": "John's Place",
+        "landlordReview": "John's Place",
 
-    "environmentReview":"5, Parkview Street", Idumota, Lagos",
+        "environmentReview":"5, Parkview Street", Idumota, Lagos",
 
-    "amenitiesReview":"A 3 bedroom flat apartment with an open pool",
+        "amenitiesReview":"A 3 bedroom flat apartment with an open pool",
 
-    "image":"https://image.unsplash.com"
-    }
+        "image":"https://image.unsplash.com"
+        }
 
 - Response:
 
