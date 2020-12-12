@@ -15,9 +15,9 @@ router.post('/review/create', verifyJwt, createReview)
 
 router.get('/reviews/:id', getReviews)
 
-router.route('/review/:id', verifyJwt)
-    .put(updateReview)
-    .delete(deleteReview)
+router.route('/review/:id')
+    .put(verifyJwt, updateReview)
+    .delete(verifyJwt, deleteReview)
 
 router.post('/review/upvote', upVote)
 
