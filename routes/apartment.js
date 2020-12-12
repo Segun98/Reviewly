@@ -7,7 +7,6 @@ const {
     getAllApartments
 } = require("../controllers/apartment")
 
-
 router.post('/apartment/create', createApartment)
 
 router.get('/apartments', getAllApartments)

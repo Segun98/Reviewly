@@ -1,7 +1,7 @@
 const Apartments = require("../models/apartments")
 
 /* 
-POST /api/apartment/create
+POST /api/v1/apartment/create
 */
 async function createApartment(req, res, next) {
     const {
@@ -31,7 +31,7 @@ async function createApartment(req, res, next) {
 
 /* 
 get a single apartment
-GET /api/apartment/:id
+GET /api/v1/apartment/:id
 */
 async function getApartment(req, res, next) {
     try {
@@ -48,8 +48,8 @@ async function getApartment(req, res, next) {
 
 
 /* 
-get all apartment
-GET /api/apartments
+get all apartments
+GET /api/v1/apartments
 */
 async function getAllApartments(req, res, next) {
     try {
@@ -75,6 +75,10 @@ async function updateApartment(req, res, next) {
         description
     } = req.body
 
+    if (!name || !location || !description) {
+        return res.status(400).send("Name, description and location fields are required")
+    }
+
     try {
         await Apartments.findOneAndUpdate({
             _id: req.params.id
@@ -97,7 +101,7 @@ async function updateApartment(req, res, next) {
 
 /* 
 delete an apartment
-DELETE /api/apartment/:id
+DELETE /api/v1/apartment/:id
 */
 
 async function deleteApartment(req, res, next) {
