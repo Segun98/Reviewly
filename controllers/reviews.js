@@ -1,7 +1,7 @@
 const Reviews = require("../models/reviews")
 
 /* 
-POST api/review/create
+POST api/v1/review/create
 */
 async function createReview(req, res, next) {
     const {
@@ -35,7 +35,7 @@ async function createReview(req, res, next) {
 
 
 /* 
-GET api/reviews/:id
+GET api/v1/reviews/:id
 fetches all reviews under an apartment, expects apartment id in parameter.
 expects a query of what it should be sorted by. - date || votes
 */
@@ -70,7 +70,9 @@ async function getReviews(req, res, next) {
 
 
 /* 
-PUT api/review/:id
+PUT api/v1/review/:id
+expects userId in body
+and -authorization: bearer token- in header
 */
 async function updateReview(req, res, next) {
     const {
@@ -78,8 +80,13 @@ async function updateReview(req, res, next) {
         environmentReview,
         amenitiesReview,
         image,
+        userId
     } = req.body
 
+    //only a creator can update their review
+    if (userId !== req.payload.user_id) {
+        return res.status(401).send("unauthorised")
+    }
     try {
         await Reviews.findOneAndUpdate({
             _id: req.params.id
@@ -100,14 +107,24 @@ async function updateReview(req, res, next) {
 }
 
 /* 
-DELETE api/review/:id
+DELETE api/v1/review/:id
 expects review _id 
 */
 async function deleteReview(req, res, next) {
+
     try {
         const review = await Reviews.findOne({
             _id: req.params.id
         })
+
+        //convert to string
+        let userIdString = review.userId.toString()
+
+        //only a creator can delete their review
+        if (userIdString !== req.payload.user_id) {
+            return res.status(401).send("unauthorised")
+        }
+
         await review.remove()
 
         res.status(200).send('success')
@@ -120,7 +137,7 @@ async function deleteReview(req, res, next) {
 
 
 /* 
-POST api/review/upvote
+POST api/v1/review/upvote
 give an upvote.
 expects the _id of the review being upvoted.
 duplicates are prevented with ip address
