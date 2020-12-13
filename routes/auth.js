@@ -9,7 +9,10 @@ const {
     verifyJwt
 } = require("../helpers/auth")
 
-//authentication
+/* 
+All routes are prefixed with /api/v1
+*/
+
 router.post('/login', login)
 
 router.post('/signup', signUp)

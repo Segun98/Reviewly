@@ -11,6 +11,11 @@ const {
 } = require("../controllers/reviews")
 
 
+/* 
+All routes are prefixed with /api/v1
+*/
+
+
 router.post('/review/create', verifyJwt, createReview)
 
 router.get('/reviews/:id', getReviews)

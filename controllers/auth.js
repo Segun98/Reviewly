@@ -5,7 +5,7 @@ const {
 } = require("../helpers/auth")
 
 /* 
-POST /api/signup
+POST /api/v1/signup
 */
 async function signUp(req, res, next) {
     const {
@@ -46,7 +46,7 @@ async function signUp(req, res, next) {
 
 
 /* 
-POST /api/login
+POST /api/v1/login
 */
 
 async function login(req, res, next) {
@@ -88,7 +88,7 @@ async function login(req, res, next) {
 
 /* 
 fetches all users.
-GET /api/users
+GET /api/v1/users
 */
 async function getUsers(req, res, next) {
     try {
@@ -106,7 +106,7 @@ async function getUsers(req, res, next) {
 
 /* 
 fetches logged in user based on json web token.
-GET /api/user
+GET /api/v1/user
 */
 async function getUser(req, res, next) {
     try {
